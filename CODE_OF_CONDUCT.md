@@ -8,7 +8,7 @@ Build things. Be straight with people. Don't make this a worse place to be.
 
 ## Our Standards
 
-SourceCity is a builder-first community. The bar for behavior here is the same as the bar for code: clear intent, honest effort, and respect for the work.
+Yard is a builder-first community. The bar for behavior here is the same as the bar for code: clear intent, honest effort, and respect for the work.
 
 **Expected:**
 - Be direct and honest — about your code, your limitations, and your disagreements
@@ -41,7 +41,7 @@ Reports are handled confidentially. We don't do public callouts.
 
 ## Scope
 
-This applies to all spaces where SourceCity happens: the repository, issues, PRs, Discord, and any other official channel. It applies to everyone — contributors, maintainers, and visitors alike.
+This applies to all spaces where Yard happens: the repository, issues, PRs, Discord, and any other official channel. It applies to everyone — contributors, maintainers, and visitors alike.
 
 ---
 
@@ -51,4 +51,4 @@ Adapted from the [Contributor Covenant 2.1](https://www.contributor-covenant.org
 
 ---
 
-*SourceCity · CODE_OF_CONDUCT.md*
+*Yard · CODE_OF_CONDUCT.md*

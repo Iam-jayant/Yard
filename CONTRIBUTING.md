@@ -1,12 +1,12 @@
-# Contributing to SourceCity
+# Contributing to Yard
 
-Thanks for being here. SourceCity is built on the same principle it stands for — show up, claim your plot, and let the work speak.
+Thanks for being here. Yard is built on the same principle it stands for — show up, claim your plot, and let the work speak.
 
 ---
 
 ## Before You Write Any Code
 
-Read the [Phase 0 Constitution](docs/PHASE-0-CONSTITUTION.md). Seriously. Every decision about what SourceCity is and isn't lives there. If you have a question about direction, the answer is probably already in that document.
+Read the [Phase 0 Constitution](docs/PHASE-0-CONSTITUTION.md). Seriously. Every decision about what Yard is and isn't lives there. If you have a question about direction, the answer is probably already in that document.
 
 ---
 
@@ -39,8 +39,8 @@ Not the right fit right now:
 
 ```bash
 # Clone the repo
-git clone https://github.com/iam-jayant/source-city.git
-cd source-city
+git clone https://github.com/Iam-jayant/Yard.git
+cd Yard
 
 # Install dependencies (from root — Turborepo handles the rest)
 pnpm install
@@ -141,4 +141,4 @@ Open an issue with the `question` label. Or reach out to Jayant directly if you'
 
 ---
 
-*SourceCity · CONTRIBUTING.md*
+*Yard · CONTRIBUTING.md*

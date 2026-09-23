@@ -1,0 +1,25 @@
+{
+  "name": "@yard/agent",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "tsx src/index.ts",
+    "build": "tsc",
+    "lint": "echo '@yard/agent: no lint configured'",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.0.0",
+    "@yard/db": "workspace:*",
+    "@yard/types": "workspace:*",
+    "node-cron": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/node-cron": "^3.0.0",
+    "@yard/config": "workspace:*",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  }
+}

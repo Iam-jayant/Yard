@@ -1,0 +1,15 @@
+{
+  "extends": "@yard/config/typescript/base.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "paths": {
+      "@yard/db": ["../../packages/db"],
+      "@yard/types": ["../../packages/types"]
+    }
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "@yard/types",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "scripts": {
+    "build": "echo '@yard/types: no build step (consumed via ts)'",
+    "lint": "echo '@yard/types: no lint configured'",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@yard/db": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

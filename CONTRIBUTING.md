@@ -8,6 +8,8 @@ Thanks for being here. Yard is built on the same principle it stands for — sho
 
 Read the [Phase 0 Constitution](docs/PHASE-0-CONSTITUTION.md). Seriously. Every decision about what Yard is and isn't lives there. If you have a question about direction, the answer is probably already in that document.
 
+For the full technical specification — stack, schema, formulas, milestones — see [Phase 1 Spec](docs/PHASE-1.md).
+
 ---
 
 ## What We're Looking For
@@ -31,7 +33,7 @@ Not the right fit right now:
 
 ### Prerequisites
 - Node.js 20+
-- pnpm (we use pnpm workspaces)
+- pnpm 9+ (we use pnpm workspaces)
 - A GitHub account (required — GitHub OAuth is our only auth method)
 - PostgreSQL (or a Supabase project for the database)
 
@@ -49,7 +51,10 @@ pnpm install
 cp apps/web/.env.example apps/web/.env.local
 cp apps/agent/.env.example apps/agent/.env
 
-# Fill in your .env values (GitHub OAuth keys, DB URL, Claude API key)
+# Fill in your .env values (GitHub OAuth keys, DB URL, Supabase keys)
+
+# Generate Prisma client
+pnpm db:generate
 
 # Run the dev environment
 pnpm dev
@@ -60,16 +65,21 @@ pnpm dev
 ## Project Structure
 
 ```
-/apps
-  /web          ← Next.js frontend + API routes
-  /agent        ← Caretaker AI microservice
-/packages
-  /db           ← Prisma schema + migrations
-  /types        ← Shared TypeScript types
-  /config       ← Shared ESLint, TS config
+yard/
+├── apps/
+│   ├── web/          ← Next.js frontend + API routes
+│   └── agent/        ← Caretaker cron microservice
+├── packages/
+│   ├── db/           ← Prisma schema + migrations + client singleton
+│   ├── types/        ← Shared TypeScript types + BuildScore formula
+│   └── config/       ← Shared ESLint + TypeScript config
+├── docs/
+│   ├── PHASE-0-CONSTITUTION.md
+│   ├── PHASE-1.md
+│   └── AGENT.md
 ```
 
-If you're new to Turborepo: `pnpm dev` from root runs all apps in parallel. `pnpm dev --filter=web` runs just the frontend.
+If you're new to Turborepo: `pnpm dev` from root runs all apps in parallel. `pnpm dev --filter=@yard/web` runs just the frontend.
 
 ---
 
@@ -126,9 +136,8 @@ Follow the same convention as commits: `feat: short description` or `fix: short 
 All schema changes go through Prisma migrations.
 
 ```bash
-# After editing packages/db/schema.prisma
-cd packages/db
-pnpm prisma migrate dev --name describe-your-change
+# After editing packages/db/prisma/schema.prisma
+pnpm db:migrate
 ```
 
 Never edit migration files manually after they've been committed.

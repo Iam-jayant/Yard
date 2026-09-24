@@ -53,7 +53,7 @@ This project is being built openly. Read the full specs:
 | Frontend | Next.js 15 App Router + Tailwind CSS |
 | Database | PostgreSQL via Supabase |
 | ORM | Prisma |
-| Auth | NextAuth v5 + GitHub OAuth |
+| Auth | Supabase Auth + GitHub OAuth |
 | Real-time | Supabase Realtime |
 | AI Agent | Node.js cron microservice (Phase 2 for LLM layer) |
 | Hosting | Vercel (web) · Railway (agent) · Supabase (DB) |

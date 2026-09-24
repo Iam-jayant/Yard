@@ -2,15 +2,32 @@
   "extends": "@yard/config/typescript/base.json",
   "compilerOptions": {
     "jsx": "preserve",
-    "lib": ["DOM", "DOM.Iterable", "ES2022"],
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ES2022"
+    ],
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "plugins": [{ "name": "next" }],
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
     "paths": {
-      "@/*": ["./*"],
-      "@yard/db": ["../../packages/db"],
-      "@yard/types": ["../../packages/types"]
-    }
+      "@/*": [
+        "./*"
+      ],
+      "@yard/db": [
+        "../../packages/db"
+      ],
+      "@yard/types": [
+        "../../packages/types"
+      ]
+    },
+    "allowJs": true,
+    "noEmit": true,
+    "incremental": true
   },
   "include": [
     "next-env.d.ts",
@@ -18,5 +35,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }

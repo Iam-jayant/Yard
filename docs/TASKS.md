@@ -27,18 +27,18 @@
 ## M2 — City Renderer
 *Done when: City loads with districts, beacons glow, buildings render at correct heights, hover shows plot info*
 
-- [ ] **T13** — Install `@react-three/fiber`, `@react-three/drei`, `three` in `apps/web`
-- [ ] **T14** — Create `CityScene.tsx` — R3F Canvas root. Isometric camera, dark background (#0d0d0d), ambient + directional lighting with warm accent
-- [ ] **T15** — Create `CameraControls.tsx` — pan, zoom, orbit. Lock vertical angle to isometric range. Mouse drag to pan, scroll to zoom
-- [ ] **T16** — Create `District.tsx` — flat ground plane per district. Each district at its defined gridOriginX/Z. Label rendered above as HTML overlay
-- [ ] **T17** — Create `Building.tsx` — voxel box mesh. Height = `1 + (score.total / 100) * 24` floors. Windows as emissive small boxes on facade. Default color: dark green (#1a2e1a). Lit state vs dim state based on plot status
-- [ ] **T18** — Create `Beacon.tsx` — for UNCLAIMED plots. Pulsing glow ring animation (scale oscillation), animated flag mesh above plot, amber point light (#C9983A). Most visually prominent element on the map
-- [ ] **T19** — Create `Ruin.tsx` — for RUIN status plots. Irregular broken box geometry, no lights, grey desaturated color, cracked texture via vertex displacement
-- [ ] **T20** — Create `PlotPopup.tsx` — HTML overlay on plot hover. Shows: idea title, district, status badge, BuildScore, builder username (if claimed). Click navigates to `/plot/[id]`
-- [ ] **T21** — Create `CityHUD.tsx` — fixed overlay on city canvas. Shows: live builder count, plot count, active district filter buttons
-- [ ] **T22** — Wire `(city)/page.tsx` — fetch all plots from DB, pass to CityScene, position each on grid by `plot.gridX` / `plot.gridZ`
-- [ ] **T23** — Add low-graphics toggle in CityHUD — disables shadows, reduces geometry complexity, lowers pixel ratio
-- [ ] **T24** — Verify: city loads, beacons pulse on unclaimed plots, buildings vary in height, hover popup works, low-graphics mode reduces load
+- [x] **T13** — Install `@react-three/fiber`, `@react-three/drei`, `three` in `apps/web`
+- [x] **T14** — Create `CityScene.tsx` — R3F Canvas root. Isometric camera, dark background (#0d0d0d), ambient + directional lighting with warm accent
+- [x] **T15** — Create `CameraControls.tsx` — pan, zoom, orbit. Lock vertical angle to isometric range. Mouse drag to pan, scroll to zoom
+- [x] **T16** — Create `District.tsx` — flat ground plane per district. Each district at its defined gridOriginX/Z. Label rendered above as HTML overlay
+- [x] **T17** — Create `Building.tsx` — voxel box mesh. Height = `1 + (score.total / 100) * 24` floors. Windows as emissive small boxes on facade. Default color: dark green (#1a2e1a). Lit state vs dim state based on plot status
+- [x] **T18** — Create `Beacon.tsx` — for UNCLAIMED plots. Pulsing glow ring animation (scale oscillation), animated flag mesh above plot, amber point light (#C9983A). Most visually prominent element on the map
+- [x] **T19** — Create `Ruin.tsx` — for RUIN status plots. Irregular broken box geometry, no lights, grey desaturated color, cracked texture via vertex displacement
+- [x] **T20** — Create `PlotPopup.tsx` — HTML overlay on plot hover. Shows: idea title, district, status badge, BuildScore, builder username (if claimed). Click navigates to `/plot/[id]`
+- [x] **T21** — Create `CityHUD.tsx` — fixed overlay on city canvas. Shows: live builder count, plot count, active district filter buttons
+- [x] **T22** — Wire `(city)/page.tsx` — fetch all plots from DB, pass to CityScene, position each on grid by `plot.gridX` / `plot.gridZ`
+- [x] **T23** — Add low-graphics toggle in CityHUD — disables shadows, reduces geometry complexity, lowers pixel ratio
+- [x] **T24** — Verify: city loads, beacons pulse on unclaimed plots, buildings vary in height, hover popup works, low-graphics mode reduces load
 
 ---
 
@@ -103,11 +103,11 @@
 | Milestone | Tasks | Done |
 |---|---|---|
 | M1 — Scaffold | T01–T12 | 12/12 ✅ |
-| M2 — City Renderer | T13–T24 | 0/12 |
+| M2 — City Renderer | T13–T24 | 12/12 ✅ |
 | M3 — Core Mechanics | T25–T40 | 0/16 |
 | M4 — XP & Shop | T41–T48 | 0/8 |
 | M5 — Polish & Launch | T49–T62 | 0/14 |
-| **Total** | | **12/62** |
+| **Total** | | **24/62** |
 
 ---
 

@@ -170,9 +170,38 @@ User, District, Idea, Plot, HealthScore, XPTransaction, BuildingCustomization
 
 ---
 
+
+---
+
+### 2026-09-24 — M2 — City Renderer Complete
+
+**What changed:**
+
+| File | Change |
+|---|---|
+| `apps/web/package.json` | Updated `@react-three/fiber` to v9, `@react-three/drei` to v10, and `three` to v0.186 to resolve React 19 peer dependencies |
+| `apps/web/components/city/CityScene.tsx` | Canvas root, isometric camera, dark background, fog, and warm directional lighting. Supports `lowGraphics` prop |
+| `apps/web/components/city/CameraControls.tsx` | Pan, zoom, orbit controls using `MapControls`, locking vertical angle to isometric range |
+| `apps/web/components/city/District.tsx` | Renders a district's ground plane and HTML overlay label |
+| `apps/web/components/plot/Building.tsx` | Voxel mesh for claimed plots, height driven by BuildScore. Emissive windows based on status |
+| `apps/web/components/plot/Beacon.tsx` | UNCLAIMED plot indicator: pulsing ring, floating mesh, amber point light |
+| `apps/web/components/plot/Ruin.tsx` | RUIN plot indicator: irregular desaturated box with scattered rubble |
+| `apps/web/components/plot/PlotPopup.tsx` | HTML overlay on plot hover showing idea title, status, score, builder |
+| `apps/web/components/city/CityHUD.tsx` | Fixed overlay UI showing builder/plot counts, district filters, and LO-FI toggle |
+| `apps/web/components/city/CityWrapper.tsx` | Orchestrates state between HUD and Scene (filters, low graphics, hover interactions) |
+| `apps/web/app/city/page.tsx` | Server component fetching plots and districts from Prisma, passing to `CityWrapper` |
+
+**Actions taken:**
+- Developed the full 3D visual layer using React Three Fiber.
+- Built all plot visual states (Beacon, Building, Ruin).
+- Integrated `CityHUD` for interactive filtering and graphics settings.
+- Wired `app/city/page.tsx` to dynamically fetch data from the database.
+
+---
+
 ### Next Up
 
-**T12** — Verify: `pnpm dev` runs, GitHub login creates a User row in DB.
+**M3 — Core Mechanics (T25–T40)** — Idea submission, Plot claim flow, GitHub webhook integration, BuildScore computation.
 
 ---
 

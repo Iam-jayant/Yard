@@ -8,7 +8,9 @@ import Building from "../plot/Building";
 import Beacon from "../plot/Beacon";
 import Ruin from "../plot/Ruin";
 import PlotPopup from "../plot/PlotPopup";
-import { Html } from "@react-three/drei";
+import InstancedCity from "./InstancedCity";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 interface CityWrapperProps {
   districts: any[];
@@ -19,6 +21,18 @@ export default function CityWrapper({ districts, plots }: CityWrapperProps) {
   const [lowGraphics, setLowGraphics] = useState(false);
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
   const [hoveredPlotId, setHoveredPlotId] = useState<string | null>(null);
+  const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
+  
+  const router = useRouter();
+
+  // Track global mouse position for the floating tooltip
+  useEffect(() => {
+    const updateMouse = (e: MouseEvent) => {
+      setMousePos({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener("mousemove", updateMouse);
+    return () => window.removeEventListener("mousemove", updateMouse);
+  }, []);
 
   // Filter plots by active district
   const visiblePlots = activeFilter
@@ -28,8 +42,16 @@ export default function CityWrapper({ districts, plots }: CityWrapperProps) {
   const builderCount = new Set(plots.filter(p => p.builderId).map(p => p.builderId)).size;
   const plotCount = plots.filter(p => p.status !== "UNCLAIMED" && p.status !== "RUIN").length;
 
+  // Compute camera focus target based on active district
+  const activeDistrict = districts.find(d => d.slug === activeFilter);
+  const focusTarget: [number, number, number] | null = activeDistrict
+    ? [activeDistrict.gridOriginX, 0, activeDistrict.gridOriginZ]
+    : [0, 0, 0]; // Default center
+
+  const hoveredPlot = plots.find(p => p.id === hoveredPlotId);
+
   return (
-    <>
+    <div className="relative w-full h-screen overflow-hidden cursor-crosshair">
       <CityHUD
         builderCount={builderCount}
         plotCount={plotCount}
@@ -38,7 +60,7 @@ export default function CityWrapper({ districts, plots }: CityWrapperProps) {
         onToggleGraphics={() => setLowGraphics(!lowGraphics)}
       />
 
-      <CityScene lowGraphics={lowGraphics}>
+      <CityScene lowGraphics={lowGraphics} focusTarget={focusTarget}>
         {/* Render Districts */}
         {districts.map((d) => (
           <District
@@ -50,18 +72,26 @@ export default function CityWrapper({ districts, plots }: CityWrapperProps) {
           />
         ))}
 
-        {/* Render Plots */}
+        {/* Render Instanced Buildings (Phase C) */}
+        <InstancedCity 
+          plots={visiblePlots}
+          hoveredPlotId={hoveredPlotId}
+          setHoveredPlotId={setHoveredPlotId}
+        />
+
+        {/* Render Beacons and Ruins */}
         {visiblePlots.map((plot) => {
-          // Adjust position relative to district origin if gridX/Z are local, 
-          // or if they are absolute city coordinates, just use them.
-          // Spec says "position each on grid by plot.gridX / plot.gridZ"
+          if (plot.status === "ACTIVE" || plot.status === "IDLE" || plot.status === "ABANDONED") {
+            return null; // Handled by InstancedCity
+          }
+
           const position: [number, number, number] = [plot.gridX, 0, plot.gridZ];
 
           return (
             <group
               key={plot.id}
               onPointerOver={(e) => {
-                e.stopPropagation(); // Prevent hovering multiple overlapping objects
+                e.stopPropagation();
                 setHoveredPlotId(plot.id);
               }}
               onPointerOut={(e) => {
@@ -70,38 +100,36 @@ export default function CityWrapper({ districts, plots }: CityWrapperProps) {
                   setHoveredPlotId(null);
                 }
               }}
+              onClick={(e) => {
+                e.stopPropagation();
+                router.push(`/plot/${plot.id}`);
+              }}
             >
               {plot.status === "UNCLAIMED" && <Beacon position={position} />}
-              
               {plot.status === "RUIN" && <Ruin position={position} />}
-              
-              {(plot.status === "ACTIVE" ||
-                plot.status === "IDLE" ||
-                plot.status === "ABANDONED") && (
-                <Building
-                  scoreTotal={plot.healthScore?.total || 0}
-                  status={plot.status}
-                  position={position}
-                />
-              )}
-
-              {/* Render Hover Popup */}
-              {hoveredPlotId === plot.id && (
-                <group position={[position[0], position[1] + (plot.healthScore?.total ? 1 + (plot.healthScore.total / 100) * 24 : 3), position[2]]}>
-                  <PlotPopup
-                    id={plot.id}
-                    title={plot.idea.title}
-                    districtLabel={plot.district.label}
-                    status={plot.status}
-                    buildScore={plot.healthScore?.total || 0}
-                    builderUsername={plot.builder?.username}
-                  />
-                </group>
-              )}
             </group>
           );
         })}
       </CityScene>
-    </>
+
+      {/* Floating 2D HTML Overlay for Plot Hover (Fixes React 19 drei/Html unmount crash) */}
+      <div 
+        className="fixed pointer-events-none z-50 transition-opacity duration-200"
+        style={{
+          left: mousePos.x + 15,
+          top: mousePos.y + 15,
+          opacity: hoveredPlot ? 1 : 0
+        }}
+      >
+        <PlotPopup
+          id={hoveredPlot?.id || ""}
+          title={hoveredPlot?.idea?.title || ""}
+          districtLabel={hoveredPlot?.district?.label || ""}
+          status={hoveredPlot?.status || "UNCLAIMED"}
+          buildScore={hoveredPlot?.healthScore?.total || 0}
+          builderUsername={hoveredPlot?.builder?.username}
+        />
+      </div>
+    </div>
   );
 }
